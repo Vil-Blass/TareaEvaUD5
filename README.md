@@ -17,14 +17,14 @@ Aplicación web para administrar cuadernos temáticos y sus notas. Cada nota per
 2. Si aún no tienes un esquema de prácticas, utiliza el script `preparar_usuario_oracle.sql` proporcionado con la tarea, conectado como administrador al servicio `XEPDB1`. Sustituye la clave de ejemplo por una propia; no guardes la clave real en este repositorio. La aplicación no debe conectarse como `SYSTEM`.
 3. Configura estas variables de entorno para el usuario/esquema de prácticas:
 
-   - `DB_USERNAME`: nombre del usuario de prácticas.
+   - `DB_USERNAME`: nombre del usuario de prácticas (por defecto, `AD05_APP`).
    - `DB_PASSWORD`: su contraseña.
    - `DB_URL` (opcional): URL JDBC. Por defecto es `jdbc:oracle:thin:@localhost:1521/XEPDB1`.
 
    Ejemplo en PowerShell (solo para la sesión actual; reemplaza el valor de ejemplo):
 
    ```powershell
-   $env:DB_USERNAME = "ad05_practicas"
+   $env:DB_USERNAME = "AD05_APP"
    $env:DB_PASSWORD = "tu-clave-local"
    ```
 
