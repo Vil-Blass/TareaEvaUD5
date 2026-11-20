@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<!-- FRAGMENTOS THYMELEAF: MENÚ Y MENSAJES REUTILIZADOS POR LAS PÁGINAS. -->
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" th:href="@{/}">Cuadernos y notas</a>
+        <div class="navbar-nav">
+            <a class="nav-link" th:href="@{/cuadernos}">Cuadernos</a>
+            <a class="nav-link" th:href="@{/notas}">Notas</a>
+        </div>
+    </div>
+</nav>
+<div th:fragment="alerts" class="container">
+    <div th:if="${mensaje}" class="alert alert-success" role="status" th:text="${mensaje}"></div>
+    <div th:if="${aviso}" class="alert alert-warning" role="alert" th:text="${aviso}"></div>
+</div>
+</body>
+</html>
