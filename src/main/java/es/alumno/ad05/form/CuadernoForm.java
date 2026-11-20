@@ -14,18 +14,22 @@ public class CuadernoForm {
     @Size(max = 500, message = "La descripción no puede superar los 500 caracteres.")
     private String descripcion;
 
+    // Devuelve el nombre recibido desde el formulario web.
     public String getNombre() {
         return nombre;
     }
 
+    // Guarda el nombre enviado en el formulario.
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    // Devuelve la descripción recibida desde el formulario web.
     public String getDescripcion() {
         return descripcion;
     }
 
+    // Guarda la descripción enviada en el formulario.
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }

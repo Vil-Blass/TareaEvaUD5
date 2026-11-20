@@ -17,23 +17,27 @@ public class NotaService {
     private final NotaRepository notaRepository;
     private final CuadernoRepository cuadernoRepository;
 
+    // Recibe los repositorios necesarios para gestionar notas y validar su cuaderno.
     public NotaService(NotaRepository notaRepository, CuadernoRepository cuadernoRepository) {
         this.notaRepository = notaRepository;
         this.cuadernoRepository = cuadernoRepository;
     }
 
     @Transactional(readOnly = true)
+    // Devuelve todas las notas junto con los datos de sus cuadernos.
     public List<Nota> listar() {
         return notaRepository.findAllConCuaderno();
     }
 
     @Transactional(readOnly = true)
     @NonNull
+    // Busca una nota por su identificador o lanza un error si no existe.
     public Nota obtener(long id) {
         return exigirNota(id);
     }
 
     @NonNull
+    // Realiza la búsqueda común y centraliza el error para notas inexistentes.
     private Nota exigirNota(long id) {
         Nota nota = notaRepository.findConCuadernoById(id).orElse(null);
         if (nota == null) {
@@ -43,6 +47,7 @@ public class NotaService {
     }
 
     @Transactional
+    // Crea una nota nueva o actualiza la existente después de validar su cuaderno.
     public Nota guardar(Long id, String titulo, String contenido, Long cuadernoId) {
         // COMPRUEBA EL CUADERNO ANTES DE CREAR O ACTUALIZAR LA NOTA.
         if (cuadernoId == null) {
@@ -58,6 +63,7 @@ public class NotaService {
     }
 
     @Transactional
+    // Elimina la nota indicada sin eliminar el cuaderno al que pertenece.
     public void eliminar(long id) {
         // ELIMINA SOLO LA NOTA SEÑALADA Y CONSERVA SU CUADERNO.
         notaRepository.delete(exigirNota(id));

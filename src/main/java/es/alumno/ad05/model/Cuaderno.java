@@ -37,29 +37,36 @@ public class Cuaderno {
     // CASCADE ALL: AL ELIMINAR EL CUADERNO, HIBERNATE ELIMINA TAMBIÉN SUS NOTAS.
     private List<Nota> notas = new ArrayList<>();
 
+    // Constructor vacío requerido por JPA para crear instancias de la entidad.
     public Cuaderno() {
     }
 
+    // Devuelve el identificador generado para este cuaderno.
     public Long getId() {
         return id;
     }
 
+    // Devuelve el nombre del cuaderno.
     public String getNombre() {
         return nombre;
     }
 
+    // Actualiza el nombre del cuaderno.
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    // Devuelve la descripción del cuaderno.
     public String getDescripcion() {
         return descripcion;
     }
 
+    // Actualiza la descripción del cuaderno.
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    // Devuelve la lista de notas asociadas a este cuaderno.
     public List<Nota> getNotas() {
         return notas;
     }

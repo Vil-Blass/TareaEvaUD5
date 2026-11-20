@@ -13,6 +13,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RecursoNoEncontradoException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
+    // Convierte el recurso inexistente en una respuesta 404 con una vista informativa.
     public String recursoNoEncontrado(RecursoNoEncontradoException exception, Model model) {
         model.addAttribute("mensajeError", exception.getMessage());
         return "error/404";

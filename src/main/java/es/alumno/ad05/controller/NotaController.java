@@ -28,18 +28,21 @@ public class NotaController {
     private final NotaService notaService;
     private final CuadernoService cuadernoService;
 
+    // Recibe los servicios que gestionan las notas y los cuadernos asociados.
     public NotaController(NotaService notaService, CuadernoService cuadernoService) {
         this.notaService = notaService;
         this.cuadernoService = cuadernoService;
     }
 
     @GetMapping
+    // Muestra el listado de notas.
     public String listar(Model model) {
         model.addAttribute("notas", notaService.listar());
         return "notas/lista";
     }
 
     @GetMapping("/nueva")
+    // Prepara el formulario de alta y redirige si todavía no hay cuadernos.
     public String nueva(Model model, RedirectAttributes redirectAttributes) {
         if (cuadernoService.listar().isEmpty()) {
             redirectAttributes.addFlashAttribute("aviso",
@@ -52,6 +55,7 @@ public class NotaController {
     }
 
     @PostMapping
+    // Recibe el formulario de alta y delega validación y guardado.
     public String crear(@Valid @ModelAttribute("notaForm") NotaForm form,
                         BindingResult bindingResult, Model model,
                         RedirectAttributes redirectAttributes) {
@@ -60,6 +64,7 @@ public class NotaController {
     }
 
     @GetMapping("/{id}/editar")
+    // Carga una nota existente y rellena el formulario para editarla.
     public String editar(@PathVariable long id, Model model) {
         // CARGA LA SELECCIÓN ACTUAL DEL CUADERNO ANTES DE MOSTRAR EL FORMULARIO.
         Nota nota = notaService.obtener(id);
@@ -73,6 +78,7 @@ public class NotaController {
     }
 
     @PostMapping("/{id}")
+    // Recibe los cambios de una nota existente y delega el guardado.
     public String actualizar(@PathVariable long id,
                              @Valid @ModelAttribute("notaForm") NotaForm form,
                              BindingResult bindingResult, Model model,
@@ -83,12 +89,14 @@ public class NotaController {
     }
 
     @GetMapping("/{id}/eliminar")
+    // Muestra los datos de la nota antes de confirmar su eliminación.
     public String confirmarEliminacion(@PathVariable long id, Model model) {
         model.addAttribute("nota", notaService.obtener(id));
         return "notas/confirmar-eliminar";
     }
 
     @PostMapping("/{id}/eliminar")
+    // Elimina la nota tras la confirmación y redirige al listado.
     public String eliminar(@PathVariable long id, RedirectAttributes redirectAttributes) {
         // BORRA SOLO ESTA NOTA; NO AFECTA AL CUADERNO NI A OTRAS NOTAS.
         notaService.eliminar(id);
@@ -96,6 +104,7 @@ public class NotaController {
         return "redirect:/notas";
     }
 
+    // Valida y guarda una nota; si hay errores, vuelve a mostrar el formulario.
     private String guardar(Long id, NotaForm form, BindingResult bindingResult, Model model,
                            RedirectAttributes redirectAttributes, String titulo, String accion) {
         if (cuadernoService.listar().isEmpty()) {
@@ -125,6 +134,7 @@ public class NotaController {
         return "redirect:/notas";
     }
 
+    // Añade al modelo los datos comunes que necesita el formulario de notas.
     private void prepararFormulario(Model model, String titulo, String accion) {
         model.addAttribute("cuadernos", cuadernoService.listar());
         model.addAttribute("tituloPagina", titulo);

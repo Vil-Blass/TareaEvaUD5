@@ -36,33 +36,41 @@ public class Nota {
     // MANY-TO-ONE: PERMITE CAMBIAR UNA NOTA DE CUADERNO EN LA EDICIÓN.
     private Cuaderno cuaderno;
 
+    // Constructor vacío que JPA necesita para materializar la entidad.
     public Nota() {
     }
 
+    // Devuelve el identificador asignado a la nota.
     public Long getId() {
         return id;
     }
 
+    // Devuelve el título de la nota.
     public String getTitulo() {
         return titulo;
     }
 
+    // Cambia el título de la nota.
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
+    // Devuelve el contenido de la nota.
     public String getContenido() {
         return contenido;
     }
 
+    // Cambia el contenido de la nota.
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
 
+    // Devuelve el cuaderno al que pertenece la nota.
     public Cuaderno getCuaderno() {
         return cuaderno;
     }
 
+    // Asigna un cuaderno y mantiene sincronizadas ambas listas de la relación.
     public void setCuaderno(Cuaderno cuaderno) {
         // MANTIENE SINCRONIZADOS LOS DOS EXTREMOS DE LA RELACIÓN EN MEMORIA.
         if (this.cuaderno == cuaderno) {

@@ -21,11 +21,13 @@ public class CuadernoController {
 
     private final CuadernoService cuadernoService;
 
+    // Recibe el servicio encargado de las operaciones sobre cuadernos.
     public CuadernoController(CuadernoService cuadernoService) {
         this.cuadernoService = cuadernoService;
     }
 
     @GetMapping
+    // Muestra todos los cuadernos con sus notas asociadas.
     public String listar(Model model) {
         // LISTA TODOS LOS CUADERNOS Y SUS NOTAS PARA LA CONSULTA.
         model.addAttribute("cuadernos", cuadernoService.listarConNotas());
@@ -33,6 +35,7 @@ public class CuadernoController {
     }
 
     @GetMapping("/nuevo")
+    // Prepara un formulario vacío para crear un cuaderno.
     public String nuevo(Model model) {
         model.addAttribute("cuadernoForm", new CuadernoForm());
         model.addAttribute("tituloPagina", "Nuevo cuaderno");
@@ -41,6 +44,7 @@ public class CuadernoController {
     }
 
     @PostMapping
+    // Valida los datos recibidos y crea un cuaderno si son correctos.
     public String crear(@Valid @ModelAttribute("cuadernoForm") CuadernoForm form,
                         BindingResult bindingResult, Model model,
                         RedirectAttributes redirectAttributes) {
@@ -56,6 +60,7 @@ public class CuadernoController {
     }
 
     @GetMapping("/{id}/editar")
+    // Carga los datos del cuaderno indicado en el formulario de edición.
     public String editar(@PathVariable long id, Model model) {
         // CARGA LOS DATOS ACTUALES EN EL MISMO FORMULARIO.
         Cuaderno cuaderno = cuadernoService.obtener(id);
@@ -69,6 +74,7 @@ public class CuadernoController {
     }
 
     @PostMapping("/{id}")
+    // Valida y guarda los cambios del cuaderno existente.
     public String actualizar(@PathVariable long id,
                              @Valid @ModelAttribute("cuadernoForm") CuadernoForm form,
                              BindingResult bindingResult, Model model,
@@ -85,6 +91,7 @@ public class CuadernoController {
     }
 
     @GetMapping("/{id}/eliminar")
+    // Muestra el cuaderno y sus notas antes de solicitar confirmación.
     public String confirmarEliminacion(@PathVariable long id, Model model) {
         Cuaderno cuaderno = cuadernoService.obtenerConNotas(id);
         model.addAttribute("cuaderno", cuaderno);
@@ -92,6 +99,7 @@ public class CuadernoController {
     }
 
     @PostMapping("/{id}/eliminar")
+    // Elimina el cuaderno y redirige al listado con un mensaje de resultado.
     public String eliminar(@PathVariable long id, RedirectAttributes redirectAttributes) {
         // EJECUTA LA ELIMINACIÓN SOLO DESDE POST DENTRO DE UNA TRANSACCIÓN.
         cuadernoService.eliminar(id);

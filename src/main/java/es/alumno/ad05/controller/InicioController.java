@@ -13,12 +13,14 @@ public class InicioController {
     private final CuadernoService cuadernoService;
     private final NotaService notaService;
 
+    // Recibe los servicios necesarios para obtener los totales de la página inicial.
     public InicioController(CuadernoService cuadernoService, NotaService notaService) {
         this.cuadernoService = cuadernoService;
         this.notaService = notaService;
     }
 
     @GetMapping("/")
+    // Calcula los totales de cuadernos y notas y muestra la página de inicio.
     public String inicio(Model model) {
         model.addAttribute("numeroCuadernos", cuadernoService.listar().size());
         model.addAttribute("numeroNotas", notaService.listar().size());

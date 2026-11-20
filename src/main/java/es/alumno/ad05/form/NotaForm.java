@@ -18,26 +18,32 @@ public class NotaForm {
     @NotNull(message = "Selecciona un cuaderno.")
     private Long cuadernoId;
 
+    // Devuelve el título recibido desde el formulario web.
     public String getTitulo() {
         return titulo;
     }
 
+    // Guarda el título enviado en el formulario.
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
 
+    // Devuelve el contenido recibido desde el formulario web.
     public String getContenido() {
         return contenido;
     }
 
+    // Guarda el contenido enviado en el formulario.
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
 
+    // Devuelve el identificador del cuaderno seleccionado.
     public Long getCuadernoId() {
         return cuadernoId;
     }
 
+    // Guarda el identificador del cuaderno seleccionado en el formulario.
     public void setCuadernoId(Long cuadernoId) {
         this.cuadernoId = cuadernoId;
     }

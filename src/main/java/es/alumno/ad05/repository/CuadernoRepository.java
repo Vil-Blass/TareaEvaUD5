@@ -10,11 +10,11 @@ import java.util.Optional;
 
 public interface CuadernoRepository extends JpaRepository<Cuaderno, Long> {
 
-    // CONSULTA JPQL PARA LISTAR CUADERNOS YA CON SUS NOTAS CARGADAS.
+    // Devuelve todos los cuadernos cargando sus notas asociadas.
     @Query("select distinct c from Cuaderno c left join fetch c.notas")
     List<Cuaderno> findAllConNotas();
 
-    // CONSULTA JPQL PARA OBTENER UN CUADERNO Y TODAS SUS NOTAS POR ID.
+    // Busca por ID un cuaderno y carga sus notas, aunque no tenga ninguna.
     @Query("select distinct c from Cuaderno c left join fetch c.notas where c.id = :id")
     Optional<Cuaderno> findConNotasById(@Param("id") Long id);
 }
